@@ -44,12 +44,6 @@ app.get('/', function(req, res) {
     res.send('Initial page');
 });
 
-app.get('/top_artists', function(req, res) {
-    request.post("https://api.spotify.com/v1/me/top/artists-H Authorization: Bearer " + {access_token}, function(error, response, body) {
-
-    });
-});
-
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
@@ -114,7 +108,7 @@ app.get('/main', function(req, res) {
         });
 
         var top_artists_options = {
-            url: 'https://api.spotify.com/v1/me/top/artists',
+            url: 'https://api.spotify.com/v1/me/top/artists?limit=3',
             headers: { 'Authorization': 'Bearer ' + access_token },
             limit: '3',
             json: true
@@ -125,7 +119,7 @@ app.get('/main', function(req, res) {
         });
 
         var top_tracks_options = {
-            url: 'https://api.spotify.com/v1/me/top/tracks',
+            url: 'https://api.spotify.com/v1/me/top/tracks?limit=3',
             headers: { 'Authorization': 'Bearer ' + access_token },
             limit: '3',
             json: true
