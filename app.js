@@ -44,13 +44,19 @@ app.get('/', function(req, res) {
     res.send('Initial page');
 });
 
+app.get('/top_artists', function(req, res) {
+    request.post("https://api.spotify.com/v1/me/top/artists-H Authorization: Bearer " + {access_token}, function(error, response, body) {
+
+    });
+});
+
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email user-top-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -104,7 +110,29 @@ app.get('/main', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          //console.log(body);
+        });
+
+        var top_artists_options = {
+            url: 'https://api.spotify.com/v1/me/top/artists',
+            headers: { 'Authorization': 'Bearer ' + access_token },
+            limit: '3',
+            json: true
+          };
+
+        request.get(top_artists_options, function(error, response, body) {
+            console.log("body_artists:", body)
+        });
+
+        var top_tracks_options = {
+            url: 'https://api.spotify.com/v1/me/top/tracks',
+            headers: { 'Authorization': 'Bearer ' + access_token },
+            limit: '3',
+            json: true
+          };
+
+        request.get(top_tracks_options, function(error, response, body) {
+            console.log("body_tracks:", body)
         });
 
         // we can also pass the token to the browser to make requests from there
