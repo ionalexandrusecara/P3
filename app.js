@@ -17,6 +17,11 @@ var client_id = '630db823538d40c9a89883dad86850d2'; // Your client id
 var client_secret = '97eedd5a8fff4bd18d75a17f17da1135'; // Your secret
 var redirect_uri = 'http://localhost:5000/main'; // Your redirect uri
 
+var top_tracks = [];
+var top_track_features = [];
+var top_track_release_dates = [];
+var top_artists = [];
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -110,23 +115,38 @@ app.get('/main', function(req, res) {
         var top_artists_options = {
             url: 'https://api.spotify.com/v1/me/top/artists?limit=3',
             headers: { 'Authorization': 'Bearer ' + access_token },
-            limit: '3',
             json: true
           };
 
         request.get(top_artists_options, function(error, response, body) {
-            console.log("body_artists:", body)
+            top_artists = body;
         });
 
         var top_tracks_options = {
-            url: 'https://api.spotify.com/v1/me/top/tracks?limit=3',
+            url: 'https://api.spotify.com/v1/me/top/tracks?limit=10',
             headers: { 'Authorization': 'Bearer ' + access_token },
-            limit: '3',
             json: true
           };
 
         request.get(top_tracks_options, function(error, response, body) {
-            console.log("body_tracks:", body)
+            top_tracks = body.items;
+            top_track_release_dates = [];
+
+            top_tracks.forEach(function(track) {
+              top_track_release_dates.push(track.album.release_date)
+              
+              //get the audio features of each top track
+              var track_options = {
+                url: 'https://api.spotify.com/v1/audio-features/' + track.id,
+                headers: { 'Authorization': 'Bearer ' + access_token },
+                json: true
+              };
+
+              request.get(track_options, function(error, response, body) {
+                console.log(body);
+                top_track_features.push(body)
+              });
+            });
         });
 
         // we can also pass the token to the browser to make requests from there
