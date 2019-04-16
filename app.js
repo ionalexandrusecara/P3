@@ -18,18 +18,15 @@ var client_id = '630db823538d40c9a89883dad86850d2'; // Your client id
 var client_secret = '97eedd5a8fff4bd18d75a17f17da1135'; // Your secret
 var redirect_uri = 'http://localhost:5000/main'; // Your redirect uri
 
-<<<<<<< HEAD
 //CHARTS USED FROM D3
 var pie = d3.pie()
 
 //DATA USED IN CHARTS
 var pie_chart_percentages = [2, 4, 8, 10];
-=======
 var top_tracks = [];
 var top_track_features = [];
 var top_track_release_dates = [];
 var top_artists = [];
->>>>>>> 5ca0bd825105cfcb5a2e345e2025eab0636c2db9
 
 /**
  * Generates a random string containing numbers and letters
