@@ -44,6 +44,7 @@ var generateRandomString = function(length) {
 };
 
 var stateKey = 'spotify_auth_state';
+const users = require('./routes/user');
 
 var app = express();
 
@@ -53,8 +54,12 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(req, res) {
     res.send('Initial page');
-    
-    console.log(pie(data))
+});
+
+app.use('/api/users', users);
+
+app.get('/nigga', function(req, res) {
+  res.send('Main nigg');
 });
 
 app.get('/login', function(req, res) {
@@ -157,12 +162,11 @@ app.get('/main', function(req, res) {
             });
         });
 
-        // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
+        res.redirect('http://localhost:3000/dashboard/' +
           querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));
+          access_token: access_token,
+          refresh_token: refresh_token
+        }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
