@@ -16,7 +16,7 @@ export default class ReleaseDate extends Component {
         var data = this.props.data;
 
         // size and margins for the chart
-        var w = 600;
+        var w = 825;
         var h = 400;
         var padding = 40;
 
@@ -29,6 +29,11 @@ export default class ReleaseDate extends Component {
         .domain([0, d3.max(data, function(d) { return d.value; })])
         .range([h - padding, padding]);
 
+        var line = d3.line()
+        .x(function(d, i) { return xScale(d.key); }) // set the x values for the line generator
+        .y(function(d) { return yScale(d.value); }) // set the y values for the line generator 
+        .curve(d3.curveMonotoneX) // apply smoothing to the line
+
         var xAxis = d3.axisBottom().scale(xScale);
 
         var yAxis = d3.axisLeft().scale(yScale);
@@ -38,6 +43,11 @@ export default class ReleaseDate extends Component {
         .append("svg")
         .attr("width", w)
         .attr("height", h);
+
+        svg.append("path")
+        .datum(data) // 10. Binds data to the line 
+        .attr("class", "line") // Assign a class for styling 
+        .attr("d", line); // 11. Calls the line generator 
 
         // add the tooltip area to the webpage
         var tooltip = d3.select("body").append("div")
@@ -63,9 +73,15 @@ export default class ReleaseDate extends Component {
         tooltip.html(d.value  + " of your top tracks from " + d.key)
         .style("left", (d3.event.pageX + 5) + "px")
         .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                 .duration(400)
+                 .style("opacity", 0);
         });
 
         svg.append("text")
+        .attr("class", "title")
         .attr("transform", "translate(100,0)")
         .attr("x", 50)
         .attr("y", 50)

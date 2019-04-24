@@ -1,5 +1,7 @@
 body {
-    font-family: "Verdana"
+    font-family: "Verdana";
+    background-color: gray;
+    color: white
 }
 .arc text {
     font: 10px sans-serif;
@@ -11,11 +13,17 @@ body {
 }
 
 .title {
-    fill: teal;
+    color: whitesmoke;
     font-weight: bold;
 }
 .chart {
 
+}
+
+.line {
+    fill: none;
+    stroke: rgb(8, 153, 32);
+    stroke-width: 3;
 }
 
 .main text {
@@ -24,12 +32,12 @@ body {
 
 .axis line, .axis path {
     shape-rendering: crispEdges;
-    stroke: black;
+    stroke: whitesmoke;
     fill: none;
 }
 
 circle {
-    fill: steelblue;
+    fill: rgb(68, 204, 79);
 }
 
 .tooltip {
@@ -38,6 +46,7 @@ circle {
     height: inherit;
     pointer-events: none;
     background: #fff;
+    color: black;
     padding: 10px;
     border-radius: 15px;
     font-size: 12px;

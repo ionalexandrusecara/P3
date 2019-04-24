@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReleaseDate from './ReleaseDate';
 import Valence from './Valence';
+import Energy from './Energy';
+import Acoustic from './Acoustic';
 import './stylesheet.css';
+import Genres from './Genres';
 
 export default class Dashboard extends Component {
 
@@ -46,11 +49,13 @@ export default class Dashboard extends Component {
                         top_tracks_popularity: result.top_tracks_popularity,
                         top_track_acousticness: result.top_track_acousticness,
                         top_track_energy: result.top_track_energy,
-                        top_track_valence: result.top_track_valence
+                        top_track_valence: result.top_track_valence,
+                        no_tracks: 10
                     });
                     console.log(this.state.top_genres);
                   }
                 );
+
     }
 
     render() {
@@ -58,10 +63,14 @@ export default class Dashboard extends Component {
         if(!loaded){
             return null; 
         }
+
         return (
             <div>
                 <ReleaseDate data={this.state.top_release_dates}></ReleaseDate>
+                <Genres data={this.state.top_genres}></Genres>
                 <Valence data={this.state.top_track_valence}></Valence>
+                <Energy data={this.state.top_track_energy}></Energy>
+                <Acoustic data={this.state.top_track_acousticness}></Acoustic>
             </div>
         );
     }
