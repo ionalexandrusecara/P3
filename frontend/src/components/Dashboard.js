@@ -42,7 +42,9 @@ export default class Dashboard extends Component {
                         top_track_features: result.top_track_feature,
                         top_track_inst: result.top_track_inst,
                         top_tracks_popularity: result.top_tracks_popularity,
-                        top_track_acousticness: result.top_track_acousticness
+                        top_track_acousticness: result.top_track_acousticness,
+                        top_track_energy: result.top_track_energy,
+                        top_track_valence: result.top_track_valence
                     });
                     console.log(this.state.top_genres);
                   }
