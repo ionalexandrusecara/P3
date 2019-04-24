@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ReleaseDate from './ReleaseDate';
+import Valence from './Valence';
+import './stylesheet.css';
 
 export default class Dashboard extends Component {
 
@@ -59,7 +61,7 @@ export default class Dashboard extends Component {
         return (
             <div>
                 <ReleaseDate data={this.state.top_release_dates}></ReleaseDate>
-                <Valence></Valence>
+                <Valence data={this.state.top_track_valence}></Valence>
             </div>
         );
     }
