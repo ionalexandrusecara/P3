@@ -29,6 +29,9 @@ var top_artists_popularity = [];
 var top_tracks_popularity = [];
 var top_genres = [];
 var top_track_inst = [];
+var top_track_valence= [];
+var top_track_energy = [];
+var top_track_acousticness = [];
 
 /**
  * Generates a random string containing numbers and letters
@@ -54,7 +57,10 @@ router.post('/data', function(req, res) {
     top_track_inst: top_track_inst,
     top_track_features: top_track_features,
     top_release_dates_count: top_release_dates_count,
-    top_genres: top_genres
+    top_genres: top_genres,
+    top_track_valence: top_track_valence,
+    top_track_acousticness: top_track_acousticness,
+    top_track_energy: top_track_energy
   });
 });
 
@@ -205,6 +211,12 @@ router.get('/main', function(req, res) {
                                           value: body})
                 top_track_inst.push({key: track.name,
                                       value: body.instrumentalness});
+                top_track_acousticness.push({key: track.name,
+                                              value: body.acousticness});
+                top_track_energy.push({key: track.name,
+                                              value: body.energy});  
+                 top_track_valence.push({key: track.name,
+                                              value: body.valence});                                                                
               });
             });
 

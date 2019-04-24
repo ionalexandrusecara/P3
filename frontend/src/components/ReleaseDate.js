@@ -12,23 +12,7 @@ export default class ReleaseDate extends Component {
       }
 
     drawChart() {
-        var data = [ { key: '1991', value: 2 },
-                    { key: '1992', value: 3 },
-                    { key: '1993', value: 2 },
-                    { key: '1995', value: 1 },
-                    { key: '1998', value: 2 },
-                    { key: '2000', value: 1 },
-                    { key: '2001', value: 1 },
-                    { key: '2004', value: 3 },
-                    { key: '2008', value: 2 },
-                    { key: '2010', value: 2 },
-                    { key: '2011', value: 1 },
-                    { key: '2012', value: 2 },
-                    { key: '2014', value: 2 },
-                    { key: '2015', value: 1 },
-                    { key: '2016', value: 4 },
-                    { key: '2017', value: 5 },
-                    { key: '2018', value: 16 } ];
+        var data = this.props.data;
 
         // size and margins for the chart
         var w = 600;

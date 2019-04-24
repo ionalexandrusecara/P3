@@ -41,12 +41,12 @@ export default class Dashboard extends Component {
                         top_release_dates: result.top_release_dates_count,
                         top_track_features: result.top_track_feature,
                         top_track_inst: result.top_track_inst,
-                        top_tracks_popularity: result.top_tracks_popularity
+                        top_tracks_popularity: result.top_tracks_popularity,
+                        top_track_acousticness: result.top_track_acousticness
                     });
                     console.log(this.state.top_genres);
                   }
                 );
->>>>>>> 372c01c3771121e584d312790a27d255050c88b7
     }
 
     render() {
@@ -56,7 +56,8 @@ export default class Dashboard extends Component {
         }
         return (
             <div>
-                <ReleaseDate></ReleaseDate>
+                <ReleaseDate data={this.state.top_release_dates}></ReleaseDate>
+                <Valence></Valence>
             </div>
         );
     }
