@@ -19,9 +19,6 @@ var client_id = '630db823538d40c9a89883dad86850d2'; // Your client id
 var client_secret = '97eedd5a8fff4bd18d75a17f17da1135'; // Your secret
 var redirect_uri = 'http://localhost:5000/api/users/main'; // Your redirect uri
 
-//CHARTS USED FROM D3
-var pie = d3.pie()
-
 //DATA USED IN CHARTS
 var top_tracks = [];
 var top_track_features = [];
@@ -50,8 +47,8 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-router.post('/getData', function(req, res) {
-  console.log("HERERERE");
+router.post('/data', function(req, res) {
+  console.log("DATA");
   res.send({
     top_tracks_popularity: top_tracks_popularity,
     top_track_inst: top_track_inst,
@@ -62,6 +59,7 @@ router.post('/getData', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
+  console.log("LOGIN");
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -78,6 +76,8 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/main', function(req, res) {
+
+  console.log("MAIN");
 
   // your application requests refresh and access tokens
   // after checking the state parameter
