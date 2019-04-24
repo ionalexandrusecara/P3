@@ -4,12 +4,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReleaseDate from './ReleaseDate';
 import Valence from './Valence';
-<<<<<<< HEAD
 import RadarC from './RadarC';
-
-=======
 import './stylesheet.css';
->>>>>>> 6cc9777eae02e4ab36799eb810e692b6762ab9de
 
 export default class Dashboard extends Component {
 
