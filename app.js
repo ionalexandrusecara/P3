@@ -58,10 +58,6 @@ app.get('/', function(req, res) {
 
 app.use('/api/users', users);
 
-app.get('/nigga', function(req, res) {
-  res.send('Main nigg');
-});
-
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);

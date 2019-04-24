@@ -23,11 +23,15 @@ var redirect_uri = 'http://localhost:5000/api/users/main'; // Your redirect uri
 var pie = d3.pie()
 
 //DATA USED IN CHARTS
-var pie_chart_percentages = [2, 4, 8, 10];
 var top_tracks = [];
 var top_track_features = [];
 var top_track_release_dates = [];
+var top_release_dates_count = [];
 var top_artists = [];
+var top_artists_popularity = [];
+var top_tracks_popularity = [];
+var top_genres = [];
+var top_track_inst = [];
 
 /**
  * Generates a random string containing numbers and letters
@@ -46,8 +50,15 @@ var generateRandomString = function(length) {
 
 var stateKey = 'spotify_auth_state';
 
-router.get('/nigga', function(req, res) {
-  res.send('Side nigg');
+router.post('/getData', function(req, res) {
+  console.log("HERERERE");
+  res.send({
+    top_tracks_popularity: top_tracks_popularity,
+    top_track_inst: top_track_inst,
+    top_track_features: top_track_features,
+    top_release_dates_count: top_release_dates_count,
+    top_genres: top_genres
+  });
 });
 
 router.post('/login', function(req, res) {
@@ -64,12 +75,6 @@ router.post('/login', function(req, res) {
       redirect_uri: redirect_uri,
       state: state
     }));
-});
-
-router.post('/nigg', function(req, res) {
-  console.log("HHH");
-  var state = generateRandomString(16);
-  res.cookie(stateKey, state);
 });
 
 router.get('/main', function(req, res) {
@@ -119,17 +124,55 @@ router.get('/main', function(req, res) {
         });
 
         var top_artists_options = {
-            url: 'https://api.spotify.com/v1/me/top/artists?limit=3',
+            url: 'https://api.spotify.com/v1/me/top/artists?limit=100',
             headers: { 'Authorization': 'Bearer ' + access_token },
             json: true
           };
-
+  
         request.get(top_artists_options, function(error, response, body) {
-            top_artists = body;
+            top_artists = body.items;
+            var popularity = [];
+            var genres = [];
+
+            //get popularity index of each artist
+            for (var i = 0; i < top_artists.length; i++) {
+              //console.log((i+1) + '. ' + top_artists[i].name);
+              top_artists_popularity.push({key: top_artists[i].name,
+                                            value: top_artists[i].popularity});
+
+              for (var j = 0; j < top_artists[i].genres.length; j++) {
+                genres.push(top_artists[i].genres[j]);
+              }
+            }
+
+            //count occurences of each genre
+            var a = [], b = [], prev;
+            genres.sort();
+
+            for ( var i = 0; i < genres.length; i++ ) {
+              if ( genres[i] !== prev ) {
+                  a.push(genres[i]);
+                  b.push(1);
+              } else {
+                  b[b.length-1]++;
+              }
+              prev = genres[i];
+            }
+            
+            for ( var i = 0; i < a.length; i++) {
+              top_genres.push({key: a[i],
+                              val: b[i]});
+            }
+
+            top_genres.sort(compare);
+
+            //console.log(a);
+            //console.log(b);
+            //console.log(top_genres);
         });
 
         var top_tracks_options = {
-            url: 'https://api.spotify.com/v1/me/top/tracks?limit=10',
+            url: 'https://api.spotify.com/v1/me/top/tracks?limit=100',
             headers: { 'Authorization': 'Bearer ' + access_token },
             json: true
           };
@@ -137,10 +180,19 @@ router.get('/main', function(req, res) {
         request.get(top_tracks_options, function(error, response, body) {
             top_tracks = body.items;
             top_track_release_dates = [];
+            var count = 1;
 
             top_tracks.forEach(function(track) {
-              top_track_release_dates.push(track.album.release_date)
-              
+              //console.log(count + '. ' + track.artists[0].name + ' - ' + track.name)
+              count++;
+
+              //add track release year to array
+              top_track_release_dates.push(track.album.release_date.substring(0, 4));
+
+              //get popularity index for each top track
+              top_tracks_popularity.push({key: track.name,
+                                            value: track.popularity});
+
               //get the audio features of each top track
               var track_options = {
                 url: 'https://api.spotify.com/v1/audio-features/' + track.id,
@@ -149,10 +201,38 @@ router.get('/main', function(req, res) {
               };
 
               request.get(track_options, function(error, response, body) {
-                console.log(body);
-                top_track_features.push(body)
+                top_track_features.push({key: track.name,
+                                          value: body})
+                top_track_inst.push({key: track.name,
+                                      value: body.instrumentalness});
               });
             });
+
+            //count occurences of each release date
+            var a = [], b = [], prev;
+            var temp_release = top_track_release_dates.sort();
+
+            for ( var i = 0; i < temp_release.length; i++ ) {
+              if ( temp_release[i] !== prev ) {
+                  a.push(temp_release[i]);
+                  b.push(1);
+              } else {
+                  b[b.length-1]++;
+              }
+              prev = temp_release[i];
+            }
+            
+            for ( var i = 0; i < a.length; i++ ) {
+              top_release_dates_count.push({key: a[i],
+                                              value: b[i]});
+            }
+
+            // console.log(top_artists_popularity);
+            //console.log(top_tracks_popularity);
+            // console.log(top_release_dates_count);
+            // console.log(top_track_release_dates);
+            //console.log(top_track_inst);
+            //console.log(top_track_features);
         });
 
         res.redirect('http://localhost:3000/dashboard/' +
@@ -193,5 +273,13 @@ router.get('/refresh_token', function(req, res) {
     }
   });
 });
+
+function compare(a,b) {
+  if (a.val > b.val)
+    return -1;
+  if (a.val < b.val)
+    return 1;
+  return 0;
+}
 
 module.exports = router;
