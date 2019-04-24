@@ -1,0 +1,50 @@
+body {
+    font-family: "Verdana"
+}
+.arc text {
+    font: 10px sans-serif;
+    text-anchor: middle;
+}
+
+.arc path {
+    stroke: #fff;
+}
+
+.title {
+    fill: teal;
+    font-weight: bold;
+}
+.chart {
+
+}
+
+.main text {
+    font: 10px sans-serif;	
+}
+
+.axis line, .axis path {
+    shape-rendering: crispEdges;
+    stroke: black;
+    fill: none;
+}
+
+circle {
+    fill: steelblue;
+}
+
+.tooltip {
+    position: absolute;
+    width: 200px;
+    height: inherit;
+    pointer-events: none;
+    background: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.bar {
+    fill:rgb(68, 204, 79);
+}
