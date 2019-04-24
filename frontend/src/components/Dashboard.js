@@ -6,14 +6,18 @@ import axios from 'axios';
 export default class Dashboard extends Component {
 
     componentDidMount(){
-        axios.post('api/users/getData')
-                .then(res => {
-                    console.log("GOOD");
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        fetch('/api/users/data', {// Use proxy
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }
+          })
+            .then(result => result.json())// Parse the response
+            .then((result) => {
+                console.log(result);
+              }
+            );
     }
 
     render() {
