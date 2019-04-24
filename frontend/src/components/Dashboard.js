@@ -35,7 +35,7 @@ export default class Dashboard extends Component {
                     top_track_inst: result.top_track_inst,
                     top_tracks_popularity: result.top_tracks_popularity
                 });
-                console.log(this.state.top_genres);
+                console.log("topgenres",this.state.top_genres);
               }
             );
     }
