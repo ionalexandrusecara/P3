@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import ReleaseDate from './ReleaseDate';
 
 export default class Dashboard extends Component {
 
@@ -20,6 +21,7 @@ export default class Dashboard extends Component {
         return (
             <div>
                 Dashboard Component
+                <ReleaseDate></ReleaseDate>
             </div>
         );
     }
