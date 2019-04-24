@@ -4,8 +4,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReleaseDate from './ReleaseDate';
 import Valence from './Valence';
+<<<<<<< HEAD
 import Energy from './Energy';
 import Acoustic from './Acoustic';
+=======
+import RadarC from './RadarC';
+>>>>>>> a249fda408ec2d9b13ba351d355c3490773e09eb
 import './stylesheet.css';
 import Genres from './Genres';
 
@@ -71,6 +75,7 @@ export default class Dashboard extends Component {
                 <Valence data={this.state.top_track_valence}></Valence>
                 <Energy data={this.state.top_track_energy}></Energy>
                 <Acoustic data={this.state.top_track_acousticness}></Acoustic>
+                <RadarC></RadarC>
             </div>
         );
     }
