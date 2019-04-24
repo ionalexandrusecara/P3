@@ -3,6 +3,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ReleaseDate from './ReleaseDate';
+import Valence from './Valence';
+import RadarC from './RadarC';
+
 
 export default class Dashboard extends Component {
 
@@ -60,6 +63,7 @@ export default class Dashboard extends Component {
             <div>
                 <ReleaseDate data={this.state.top_release_dates}></ReleaseDate>
                 <Valence></Valence>
+                <RadarC></RadarC>
             </div>
         );
     }
