@@ -51,7 +51,29 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+            <div>
+                <h1 align="center">
+                    What does your music taste say about your character?
+                </h1>
+                <h2 align="center">
+                    High valence shows happiness. 
+                    <br></br>
+                    High energy shows cheerfulness. 
+                    <br></br>
+                    High accousticness shows confidence.
+                    <br></br>
+                    Old songs show nostalgia while new songs show trendiness.
+                </h2>
+                <p align="center">
+                    The dashboard offers 5 charts:
+                    <br></br>
+                    • 1 line chart to display all the release dates of your top songs 
+                    <br></br>
+                    • 1 pie chart to show the average valence, energy and accousticness of your songs
+                    <br></br>
+                    • 3 barcharts displaying the levels of Valence, Energy and Acousticness
+                </p>
+                <p align="center">
                 <form onSubmit={ this.handleSubmit }>
                     <div className="form-group">
                         <button type="submit" className="btn btn-primary">
@@ -59,6 +81,7 @@ class Home extends Component {
                         </button>
                     </div>
                 </form>
+                </p>
                 {this.renderRedirect()}
             </div>
         );
