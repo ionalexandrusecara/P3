@@ -8,10 +8,6 @@ export default class Energy extends Component {
         this.drawChart();
     }
 
-    componentDidUpdate() {
-        this.drawChart()
-     }
-
     render(){
         return (<div></div>);
     }

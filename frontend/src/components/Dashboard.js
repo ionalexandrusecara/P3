@@ -15,8 +15,16 @@ export default class Dashboard extends Component {
 
     constructor (props) {
         super(props);
+
+        const val = localStorage.getItem('value');
+
+        if(val == undefined){
+            val = 20;
+        }
+
+
         this.state = {
-            value: "20",
+            value: val,
             loaded: false,
             top_genres: [],
             top_release_dates: [],
@@ -68,40 +76,39 @@ export default class Dashboard extends Component {
                         top_track_energy: result.top_track_energy,
                         top_track_valence: result.top_track_valence
                     });
-
-                    this.handleNoOfSongsChange(20);
+                    console.log("LALA");
+                    this.handleNoOfSongsChange();
 
                   }
                 );
 
     }
 
-    handleNoOfSongsChange(val){
+    handleNoOfSongsChange(){
         const { top_genres, top_release_dates, top_track_features, top_track_inst, top_tracks_popularity,
-                top_track_acousticness, top_track_energy, top_track_valence} = this.state;
+                top_track_acousticness, top_track_energy, top_track_valence, value} = this.state;
         
         if(top_genres != undefined && top_release_dates != undefined && top_track_acousticness != undefined && top_track_energy != undefined && top_track_valence != undefined){
             this.setState({
-                top_genres_copy: top_genres.slice(0, val),
-                top_release_dates_copy: top_release_dates.slice(0, val),
-                top_track_acousticness_copy: top_track_acousticness.slice(0, val),
-                top_track_energy_copy: top_track_energy.slice(0, val),
-                top_track_valence_copy: top_track_valence.slice(0, val)
+                top_genres_copy: top_genres.slice(0, value),
+                top_release_dates_copy: top_release_dates.slice(0, value),
+                top_track_acousticness_copy: top_track_acousticness.slice(0, value),
+                top_track_energy_copy: top_track_energy.slice(0, value),
+                top_track_valence_copy: top_track_valence.slice(0, value)
             });
-            console.log("aasd", this.state.top_genres_copy);
-            console.log("aasddd", top_genres);
-            console.log("val", val);
         }
+        console.log("handleNoOfSongsChange");
     }
 
     handleChange(event) {
         this.setState({value: event.target.value});
-        this.handleNoOfSongsChange(event.target.value);
+        localStorage.setItem('value', event.target.value);
+
+        console.log("daddy", localStorage.getItem('value'));
       }
     
     handleSubmit(event) {
-        alert('Your favorite flavor is: ' + this.state.value);
-        event.preventDefault();
+        window.location.reload();
       }
 
     render() {
@@ -109,8 +116,6 @@ export default class Dashboard extends Component {
         if(!loaded){
             return null; 
         }
-
-        console.log("HHH", this.state.top_genres_copy)
 
         return (
             <div>
@@ -126,12 +131,12 @@ export default class Dashboard extends Component {
                     </label>
                     <input type="submit" value="Submit" />
                 </form>
-                <ReleaseDate data={this.state.top_release_dates_copy}></ReleaseDate>
-                <Genres data={this.state.top_genres_copy}></Genres>
-                <Valence data={this.state.top_track_valence_copy}></Valence>
-                <Energy data={this.state.top_track_energy_copy}></Energy>
-                <Acoustic data={this.state.top_track_acousticness_copy}></Acoustic>
-                <Pie acoustic={this.state.top_track_acousticness} valence={this.state.top_track_valence} energy={this.state.top_track_energy}></Pie>
+                <ReleaseDate data={this.state.top_release_dates.slice(0, this.state.value)}></ReleaseDate>
+                <Genres data={this.state.top_genres.slice(0, this.state.value)}></Genres>
+                <Valence data={this.state.top_track_valence.slice(0, this.state.value)}></Valence>
+                <Energy data={this.state.top_track_energy.slice(0, this.state.value)}></Energy>
+                <Acoustic data={this.state.top_track_acousticness.slice(0, this.state.value)}></Acoustic>
+                <Pie acoustic={this.state.top_track_acousticness.slice(0, this.state.value)} valence={this.state.top_track_valence.slice(0, this.state.value)} energy={this.state.top_track_energy.slice(0, this.state.value)}></Pie>
             </div>
         );
     }
