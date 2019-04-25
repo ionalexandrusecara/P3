@@ -8,16 +8,14 @@ export default class Valence extends Component {
         this.drawChart();
     }
 
-    componentDidUpdate() {
-        this.drawChart()
-     }
-
     render(){
         return (<div></div>);
     }
 
     drawChart() {
         var data = this.props.data;
+
+        console.log("valence", data);
 
         var margin = {top: 20, right: 20, bottom: 70, left: 40},
         width = 400,

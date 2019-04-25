@@ -8,10 +8,6 @@ export default class Acoustic extends Component {
         this.drawChart();
     }
 
-    componentDidUpdate() {
-        this.drawChart()
-     }
-
     render(){
         return (<div></div>);
     }
