@@ -9,6 +9,7 @@ import Acoustic from './Acoustic';
 import RadarC from './RadarC';
 import './stylesheet.css';
 import Genres from './Genres';
+import Pie from './Pie';
 
 export default class Dashboard extends Component {
 
@@ -130,6 +131,7 @@ export default class Dashboard extends Component {
                 <Valence data={this.state.top_track_valence_copy}></Valence>
                 <Energy data={this.state.top_track_energy_copy}></Energy>
                 <Acoustic data={this.state.top_track_acousticness_copy}></Acoustic>
+                <Pie acoustic={this.state.top_track_acousticness} valence={this.state.top_track_valence} energy={this.state.top_track_energy}></Pie>
             </div>
         );
     }
