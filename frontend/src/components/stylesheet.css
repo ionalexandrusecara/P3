@@ -55,5 +55,15 @@ circle {
 }
 
 .bar {
-    fill:rgb(68, 204, 79);
+    fill: linear-gradient(green, rgb(68, 204, 79))
+}
+
+.legend {
+    width: 100px;
+    height: inherit;
+    background: whitesmoke;
+    border:  2px solid black;
+    padding: 10px;
+    border-radius: 15px;
+
 }

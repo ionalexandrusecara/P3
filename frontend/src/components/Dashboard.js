@@ -16,7 +16,7 @@ export default class Dashboard extends Component {
     constructor (props) {
         super(props);
 
-        const val = localStorage.getItem('value');
+        var val = localStorage.getItem('value');
 
         if(val == undefined){
             val = 20;
@@ -132,12 +132,11 @@ export default class Dashboard extends Component {
                     <input type="submit" value="Submit" />
                 </form>
                 <ReleaseDate data={this.state.top_release_dates.slice(0, this.state.value)}></ReleaseDate>
-                <Genres data={this.state.top_genres.slice(0, this.state.value)}></Genres>
+                <Pie acoustic={this.state.top_track_acousticness.slice(0, this.state.value)} valence={this.state.top_track_valence.slice(0, this.state.value)} energy={this.state.top_track_energy.slice(0, this.state.value)}></Pie>
                 <Valence data={this.state.top_track_valence.slice(0, this.state.value)}></Valence>
                 <Energy data={this.state.top_track_energy.slice(0, this.state.value)}></Energy>
                 <Acoustic data={this.state.top_track_acousticness.slice(0, this.state.value)}></Acoustic>
-                <Pie acoustic={this.state.top_track_acousticness.slice(0, this.state.value)} valence={this.state.top_track_valence.slice(0, this.state.value)} energy={this.state.top_track_energy.slice(0, this.state.value)}></Pie>
-            </div>
+                 </div>
         );
     }
 }
