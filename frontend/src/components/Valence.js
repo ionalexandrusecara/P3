@@ -62,7 +62,7 @@ export default class Valence extends Component {
         svg.selectAll("bar")
             .data(data)
             .enter().append("rect")
-            .style("fill", "rgb(68, 204, 79)")
+            .style("fill", "#4daf4a")
             .attr("x", function(d) { return x(d.key); })
             .attr("width", x.bandwidth())
             .attr("y", function(d) { return y(d.value); })

@@ -22,7 +22,7 @@ body {
 
 .line {
     fill: none;
-    stroke: rgb(8, 153, 32);
+    stroke: rgb(156, 4, 144);
     stroke-width: 3;
 }
 
@@ -37,7 +37,7 @@ body {
 }
 
 circle {
-    fill: rgb(68, 204, 79);
+    fill: rgb(230, 4, 211);
 }
 
 .tooltip {
