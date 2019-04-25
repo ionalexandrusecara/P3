@@ -8,8 +8,12 @@ export default class Genres extends Component {
         this.drawChart();
     }
 
+    componentDidUpdate() {
+        this.drawChart()
+     }
+
     render(){
-        return (<div id={"#" + this.props.id}></div>);
+        return (<div></div>);
     }
 
     drawChart() {

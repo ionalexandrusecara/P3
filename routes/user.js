@@ -130,7 +130,7 @@ router.get('/main', function(req, res) {
         });
 
         var top_artists_options = {
-            url: 'https://api.spotify.com/v1/me/top/artists?limit=10',
+            url: 'https://api.spotify.com/v1/me/top/artists?limit=20',
             headers: { 'Authorization': 'Bearer ' + access_token },
             json: true
           };
@@ -178,7 +178,7 @@ router.get('/main', function(req, res) {
         });
 
         var top_tracks_options = {
-            url: 'https://api.spotify.com/v1/me/top/tracks?limit=10',
+            url: 'https://api.spotify.com/v1/me/top/tracks?limit=20',
             headers: { 'Authorization': 'Bearer ' + access_token },
             json: true
           };

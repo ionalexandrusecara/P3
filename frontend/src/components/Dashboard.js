@@ -15,13 +15,28 @@ export default class Dashboard extends Component {
     constructor (props) {
         super(props);
         this.state = {
+            value: "20",
             loaded: false,
             top_genres: [],
             top_release_dates: [],
             top_track_features: [],
             top_track_inst: [],
-            top_tracks_popularity: []
+            top_tracks_popularity: [],
+            top_track_acousticness: [],
+            top_track_energy: [],
+            top_track_valence: [],
+            top_genres_copy: [],
+            top_release_dates_copy: [],
+            top_track_features_copy: [],
+            top_track_inst_copy: [],
+            top_tracks_popularity_copy: [],
+            top_track_acousticness_copy: [],
+            top_track_energy_copy: [],
+            top_track_valence_copy: []
         }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     sleep = (seconds) => {
@@ -50,14 +65,43 @@ export default class Dashboard extends Component {
                         top_tracks_popularity: result.top_tracks_popularity,
                         top_track_acousticness: result.top_track_acousticness,
                         top_track_energy: result.top_track_energy,
-                        top_track_valence: result.top_track_valence,
-                        no_tracks: 10
+                        top_track_valence: result.top_track_valence
                     });
-                    console.log(this.state.top_genres);
+
+                    this.handleNoOfSongsChange(20);
+
                   }
                 );
 
     }
+
+    handleNoOfSongsChange(val){
+        const { top_genres, top_release_dates, top_track_features, top_track_inst, top_tracks_popularity,
+                top_track_acousticness, top_track_energy, top_track_valence} = this.state;
+        
+        if(top_genres != undefined && top_release_dates != undefined && top_track_acousticness != undefined && top_track_energy != undefined && top_track_valence != undefined){
+            this.setState({
+                top_genres_copy: top_genres.slice(0, val),
+                top_release_dates_copy: top_release_dates.slice(0, val),
+                top_track_acousticness_copy: top_track_acousticness.slice(0, val),
+                top_track_energy_copy: top_track_energy.slice(0, val),
+                top_track_valence_copy: top_track_valence.slice(0, val)
+            });
+            console.log("aasd", this.state.top_genres_copy);
+            console.log("aasddd", top_genres);
+            console.log("val", val);
+        }
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+        this.handleNoOfSongsChange(event.target.value);
+      }
+    
+    handleSubmit(event) {
+        alert('Your favorite flavor is: ' + this.state.value);
+        event.preventDefault();
+      }
 
     render() {
         const { loaded } = this.state;
@@ -65,14 +109,27 @@ export default class Dashboard extends Component {
             return null; 
         }
 
+        console.log("HHH", this.state.top_genres_copy)
+
         return (
             <div>
-                <ReleaseDate data={this.state.top_release_dates}></ReleaseDate>
-                <Genres data={this.state.top_genres}></Genres>
-                <Valence data={this.state.top_track_valence}></Valence>
-                <Energy data={this.state.top_track_energy}></Energy>
-                <Acoustic data={this.state.top_track_acousticness}></Acoustic>
-                <RadarC></RadarC>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Pick the number of top songs you want to include:
+                        <select value={this.state.value} onChange={this.handleChange}>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+                <ReleaseDate data={this.state.top_release_dates_copy}></ReleaseDate>
+                <Genres data={this.state.top_genres_copy}></Genres>
+                <Valence data={this.state.top_track_valence_copy}></Valence>
+                <Energy data={this.state.top_track_energy_copy}></Energy>
+                <Acoustic data={this.state.top_track_acousticness_copy}></Acoustic>
             </div>
         );
     }

@@ -8,12 +8,18 @@ export default class ReleaseDate extends Component {
         this.drawChart();
     }
 
+    componentDidUpdate() {
+        this.drawChart()
+     }
+
     render(){
-        return (<div id={"#" + this.props.id}></div>);
+        return (<div></div>);
       }
 
     drawChart() {
         var data = this.props.data;
+
+        console.log("DADADADADA", data);
 
         // size and margins for the chart
         var w = 825;
