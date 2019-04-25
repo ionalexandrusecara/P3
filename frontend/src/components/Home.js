@@ -38,6 +38,7 @@ class Home extends Component {
       }
 
     authenticate = () => {
+        console.log("Conner is a cunt");
         axios.post('api/users/login')
                 .then(res => {
                     console.log("GOOD");

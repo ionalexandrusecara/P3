@@ -92,7 +92,7 @@ export default class Pie extends Component {
         .attr("x", 155)
         .attr("y", 210)
         .attr("font-size", "24px")
-        .text("Genres")
+        .text("Overall");
 
         var pie = d3.pie().value(function(d) { 
             return d.value; 

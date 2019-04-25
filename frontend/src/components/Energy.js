@@ -36,7 +36,7 @@ export default class Energy extends Component {
          .style("opacity", 0);
  
         x.domain(data.map(function(d) { return d.key; }));
-        y.domain([0, d3.max(data, function(d) { return d.value; })]);
+        y.domain([0, d3.max(data, function(d) { return d.value; })*1.25]);
 
         svg.append("g")
             .attr("class", "x axis")

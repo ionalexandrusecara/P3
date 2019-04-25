@@ -15,8 +15,6 @@ export default class ReleaseDate extends Component {
     drawChart() {
         var data = this.props.data;
 
-        console.log("DADADADADA", data);
-
         // size and margins for the chart
         var w = 825;
         var h = 400;
@@ -28,13 +26,12 @@ export default class ReleaseDate extends Component {
         .range([padding, w - padding * 2]);
 
         var yScale = d3.scaleLinear()
-        .domain([0, d3.max(data, function(d) { return d.value; })])
+        .domain([0, d3.max(data, function(d) { return d.value; })*1.25])
         .range([h - padding, padding]);
 
         var line = d3.line()
         .x(function(d, i) { return xScale(d.key); }) // set the x values for the line generator
-        .y(function(d) { return yScale(d.value); }) // set the y values for the line generator 
-        .curve(d3.curveMonotoneX) // apply smoothing to the line
+        .y(function(d) { return yScale(d.value); }); // set the y values for the line generator 
 
         var xAxis = d3.axisBottom().scale(xScale);
 
